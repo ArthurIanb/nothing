@@ -2,7 +2,7 @@ import socket
 import sys
 HOST = '127.0.0.1'
 PORT = int(sys.argv[1])
-
+print("HELLO")
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
     while True:
