@@ -17,5 +17,8 @@ def response(req: str):
     if command == 'echo':
         return inf
 
+    if command == 'add':
+        ...
+
     return "ERROR"
 
