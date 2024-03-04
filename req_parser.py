@@ -1,9 +1,10 @@
-import sqlalchemy
 import funcs
 
 def parse_request(req):
     # return command and args
     i = req.find(' ')
+    if i == -1:
+        return req, "all"
     command = req[:i]
     inf = req[i+1:]
     return command, inf
@@ -11,8 +12,6 @@ def parse_request(req):
 
 def response(req: str):
     command, inf = parse_request(req)
-    print(command)
-    print(inf)
     if not inf:
         return "no inf"
     if command == 'calc':
@@ -23,10 +22,15 @@ def response(req: str):
 
     if command == 'add':
         return funcs.create_user_command(inf)
+    
     if command == 'get':
         return funcs.get_user_command(inf)
+    
     if command == "rem":
         return funcs.remove_user_command(inf)
-
+    
+    if command == "flush":
+        return funcs.flush_bd(inf)
+    
     return "Wrong command"
 

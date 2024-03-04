@@ -2,8 +2,6 @@ import socket
 import req_parser
 import sys
 
-# HDDRS = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"
-
 HOST = '127.0.0.1'
 PORT = int(sys.argv[1])
 
@@ -20,6 +18,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 print("connection lost")
                 break
             req = data.decode()
+            if req == 'shutdown':
+                break
             try:
                 response = req_parser.response(req)
             except:

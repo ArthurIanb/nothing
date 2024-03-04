@@ -4,7 +4,7 @@ from models import User
 urm = UserReqMaker()
 
 def create_user_command(inf: str):
-    username, bio = inf.split(' ')
+    username, bio = inf[:inf.find(' ')], inf[inf.find(' ')+1:]
     new_user = User(username, bio)
     return urm.add(new_user)
 
@@ -26,3 +26,5 @@ def remove_user_command(inf):
     return urm.delete(field, value)
 
 
+def flush_bd(inf):
+    return urm.flush()

@@ -3,23 +3,32 @@ import sys
 import config
 
 HOST = '127.0.0.1'
-PORT = int(sys.argv[1])
-print("HELLO")
-print("Available commands:")
-print("add username bio - creates user")
-print("get inf - inf can be 'fieldname value' or 'all'")
-print("rem fieldname value - removes all raws where fieldname == value")
-print("To exit type 'c'")
+if len(sys.argv) == 2:
+    PORT = int(sys.argv[1])
+else:
+    PORT = 8000
+config.help_text_en()
+
+username = input("Enter your login")
+password = input("Enter password")
+
+if username != 'admin' or password != '123':
+    print("Вы не прошли authentication")
+    sys.exit(-1)
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
     while True:
         data = input()
-        if bytes(data.encode()) == bytes([110, 105, 103, 103, 97]):
+        if bytes(data.encode()) == bytes([116, 114, 111, 108, 108, 102, 97, 99, 101]):
             print(config.easter_egg)
             break
+        
         if data == 'c':
             print("Bye")
+            s.sendall("oneleft".encode())
             break
+        
         s.sendall(data.encode())
         back_data = s.recv(1024)
         if not back_data:
