@@ -15,7 +15,11 @@ def response(req: str):
     if not inf:
         return "no inf"
     if command == 'calc':
-        return str(eval(inf))
+        try:
+            out = str(eval(inf))
+        except:
+            out = "Error"
+        return out
 
     if command == 'echo':
         return inf
