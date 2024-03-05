@@ -7,14 +7,8 @@ if len(sys.argv) == 2:
     PORT = int(sys.argv[1])
 else:
     PORT = 8000
-config.help_text_en()
+# config.help_text_en()
 
-username = input("Enter your login")
-password = input("Enter password")
-
-if username != 'admin' or password != '123':
-    print("Вы не прошли authentication")
-    sys.exit(-1)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
@@ -26,7 +20,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         
         if data == 'c':
             print("Bye")
-            s.sendall("oneleft".encode())
             break
         
         s.sendall(data.encode())

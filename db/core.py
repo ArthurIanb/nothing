@@ -34,6 +34,8 @@ class UserReqMaker:
         return t if t else [(0, "None", "None")]
 
     def delete(self, field, value):
+        if field not in bd_fields:
+            return "unsuccess"
         self.cursor.execute("DELETE FROM users WHERE {}='{}'".format(field, value))
         self.save()
         return "success"

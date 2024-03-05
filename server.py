@@ -3,7 +3,10 @@ import req_parser
 import sys
 
 HOST = '127.0.0.1'
-PORT = int(sys.argv[1])
+if len(sys.argv) == 2:
+    PORT = int(sys.argv[1])
+else:
+    PORT = 8000
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -22,8 +25,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 break
             try:
                 response = req_parser.response(req)
-            except:
-                print("ERROR")
+            except FileExistsError:
+                print("serv ERROR")
                 s.shutdown(socket.SHUT_RD)
                 break
             conn.sendall(response.encode())

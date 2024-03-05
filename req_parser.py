@@ -6,7 +6,7 @@ def parse_request(req):
     if i == -1:
         return req, "all"
     command = req[:i]
-    inf = req[i+1:]
+    inf = req[i+1:].strip()
     return command, inf
 
 
